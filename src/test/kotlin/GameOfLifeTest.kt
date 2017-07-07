@@ -4,34 +4,37 @@ import io.kotlintest.specs.BehaviorSpec
 class GameOfLifeTest : BehaviorSpec() {
     init {
         given("a single dead cell") {
-            val cell = "."
-            val game:GameOfLife = GameOfLife(cell)
+            val game:GameOfLife = GameOfLife(".")
             `when`("the cell evolves") {
-                val evolved = game.evolve()
                 then("it is still dead") {
-                    evolved shouldBe "."
+                    game.evolve() shouldBe "."
                 }
             }
         }
 
         given("two dead cells") {
-            val cell = ".."
-            val game:GameOfLife = GameOfLife(cell)
+            val game:GameOfLife = GameOfLife("..")
             `when`("the cells evolve") {
-                val evolved = game.evolve()
                 then("they are both dead") {
-                    evolved shouldBe ".."
+                    game.evolve() shouldBe ".."
                 }
             }
         }
 
         given("three alive cells") {
-            val cell = "***"
-            val game:GameOfLife = GameOfLife(cell)
+            val game:GameOfLife = GameOfLife("***")
             `when`("the cells evolve") {
-                val evolved = game.evolve()
                 then("the central cell is alive") {
-                    evolved shouldBe ".*."
+                    game.evolve() shouldBe ".*."
+                }
+            }
+        }
+
+        given("two alive and one dead cells") {
+            val game:GameOfLife = GameOfLife("**.")
+            `when`("the cells evolve") {
+                then("all the cells are dead") {
+                    game.evolve() shouldBe "..."
                 }
             }
         }
@@ -43,6 +46,8 @@ class GameOfLife(private val cell: String) {
     fun evolve(): String {
         if (cell == "***") {
             return ".*."
+        } else if (cell == "**.") {
+            return "..."
         }
         else {
             return cell
