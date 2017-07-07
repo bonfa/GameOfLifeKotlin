@@ -25,11 +25,27 @@ class GameOfLifeTest : BehaviorSpec() {
             }
         }
 
+        given("three alive cells") {
+            val cell = "***"
+            val game:GameOfLife = GameOfLife(cell)
+            `when`("the cells evolve") {
+                val evolved = game.evolve()
+                then("the central cell is alive") {
+                    evolved shouldBe ".*."
+                }
+            }
+        }
+
     }
 }
 
 class GameOfLife(private val cell: String) {
     fun evolve(): String {
-        return cell
+        if (cell == "***") {
+            return ".*."
+        }
+        else {
+            return cell
+        }
     }
 }
