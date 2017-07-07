@@ -32,9 +32,13 @@ class GameOfLifeTest : BehaviorSpec() {
 
         given("two alive and one dead cells") {
             val game:GameOfLife = GameOfLife("**.")
+            val anotherGame:GameOfLife = GameOfLife(".**")
+            val yetAnotherGame:GameOfLife = GameOfLife("*.*")
             `when`("the cells evolve") {
                 then("all the cells are dead") {
                     game.evolve() shouldBe "..."
+                    anotherGame.evolve() shouldBe "..."
+                    yetAnotherGame.evolve() shouldBe "..."
                 }
             }
         }
@@ -46,7 +50,7 @@ class GameOfLife(private val cell: String) {
     fun evolve(): String {
         if (cell == "***") {
             return ".*."
-        } else if (cell == "**.") {
+        } else if (cell == "**." || cell == ".**" || cell == "*.*") {
             return "..."
         }
         else {
