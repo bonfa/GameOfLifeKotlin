@@ -7,48 +7,54 @@ import it.bonfadelli.game.of.life.Cell.State.ALIVE
 import it.bonfadelli.game.of.life.Cell.State.DEAD
 
 class GameOfLifeParserTest : BehaviorSpec() {
+
+    private val alphabet = hashMapOf('*' to ALIVE, '.' to DEAD)
+    private val deadSymbol = "."
+    private val alive = "*"
+    private val aSymbolUnknownInTheAlphabet = "c"
+
     init {
         given("a parser and a cell represented with the dead symbol") {
-            val deadSymbol = "."
-            val parser = GameOfLifeParser(hashMapOf('*' to ALIVE, '.' to DEAD))
+            val symbol = deadSymbol
+            val parser = GameOfLifeParser(alphabet)
             `when`("the cell is parsed") {
-                val evolution = parser.parse(deadSymbol);
+                val cells = parser.parse(symbol);
                 then("its state is still dead") {
-                    evolution shouldBe arrayOf(Cell(DEAD))
+                    cells shouldBe arrayOf(Cell(DEAD))
                 }
             }
         }
 
         given("a parser and a cell represented with the alive symbol") {
-            val deadSymbol = "*"
-            val parser = GameOfLifeParser(hashMapOf('*' to ALIVE, '.' to DEAD))
+            val alive = alive
+            val parser = GameOfLifeParser(alphabet)
             `when`("the cell is parsed") {
-                val evolution = parser.parse(deadSymbol);
-                then("its state is still dead") {
-                    evolution shouldBe arrayOf(Cell(ALIVE))
+                val cells = parser.parse(alive);
+                then("its state is still alive") {
+                    cells shouldBe arrayOf(Cell(ALIVE))
                 }
             }
         }
 
         given("a parser and a symbol not present in the alphabet") {
-            val deadSymbol = "c"
-            val parser = GameOfLifeParser(hashMapOf('*' to ALIVE, '.' to DEAD))
+            val symbol = aSymbolUnknownInTheAlphabet
+            val parser = GameOfLifeParser(alphabet)
             `when`("the cell is parsed") {
-                then("its state is still dead") {
+                then("the parser throws an exception") {
                     shouldThrow<GameOfLifeParser.ParseException> {
-                        parser.parse(deadSymbol);
+                        parser.parse(symbol);
                     }
                 }
             }
         }
 
-        given("a line of symbols") {
-            val deadSymbol = ".*"
+        given("a line of symbols present in the alphabet") {
+            val deadSymbol = ".***.."
             val parser = GameOfLifeParser(hashMapOf('*' to ALIVE, '.' to DEAD))
-            `when`("the cell is parsed") {
-                val evolution = parser.parse(deadSymbol);
-                then("its state is still dead") {
-                    evolution shouldBe arrayOf(Cell(DEAD), Cell(ALIVE))
+            `when`("the cells are parsed") {
+                val cells = parser.parse(deadSymbol);
+                then("the translation is correct ") {
+                    cells shouldBe arrayOf(Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(ALIVE), Cell(DEAD), Cell(DEAD))
                 }
             }
         }
