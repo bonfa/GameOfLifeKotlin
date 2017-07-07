@@ -3,7 +3,7 @@ package it.bonfadelli.game.of.life
 class GameOfLife(private val cellsStr: String) {
 
     fun evolve(): String {
-        val cells: Array<Cell> = GameOfLifeParser().parse(cellsStr)
+        val cells: Array<Cell> = GameOfLifeParser(hashMapOf('*' to Cell.State.ALIVE, '.' to Cell.State.DEAD)).parse(cellsStr)
         var evolutionCells: Array<Cell> = emptyArray()
         for (cellIndex in 0..cellsStr.count() - 1) {
             evolutionCells = appendEvolvedStatus(cellIndex, cells, evolutionCells)

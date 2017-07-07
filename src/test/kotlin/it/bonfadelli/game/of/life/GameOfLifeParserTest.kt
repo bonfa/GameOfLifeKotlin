@@ -10,7 +10,7 @@ class GameOfLifeParserTest : BehaviorSpec() {
     init {
         given("a parser and a cell represented with the dead symbol") {
             val deadSymbol = "."
-            val parser = GameOfLifeParser()
+            val parser = GameOfLifeParser(hashMapOf('*' to ALIVE, '.' to DEAD))
             `when`("the cell is parsed") {
                 val evolution = parser.parse(deadSymbol);
                 then("its state is still dead") {
@@ -21,7 +21,7 @@ class GameOfLifeParserTest : BehaviorSpec() {
 
         given("a parser and a cell represented with the alive symbol") {
             val deadSymbol = "*"
-            val parser = GameOfLifeParser()
+            val parser = GameOfLifeParser(hashMapOf('*' to ALIVE, '.' to DEAD))
             `when`("the cell is parsed") {
                 val evolution = parser.parse(deadSymbol);
                 then("its state is still dead") {
@@ -32,7 +32,7 @@ class GameOfLifeParserTest : BehaviorSpec() {
 
         given("a parser and a symbol not present in the alphabet") {
             val deadSymbol = "c"
-            val parser = GameOfLifeParser()
+            val parser = GameOfLifeParser(hashMapOf('*' to ALIVE, '.' to DEAD))
             `when`("the cell is parsed") {
                 then("its state is still dead") {
                     shouldThrow<GameOfLifeParser.ParseException> {
@@ -44,7 +44,7 @@ class GameOfLifeParserTest : BehaviorSpec() {
 
         given("a line of symbols") {
             val deadSymbol = ".*"
-            val parser = GameOfLifeParser()
+            val parser = GameOfLifeParser(hashMapOf('*' to ALIVE, '.' to DEAD))
             `when`("the cell is parsed") {
                 val evolution = parser.parse(deadSymbol);
                 then("its state is still dead") {

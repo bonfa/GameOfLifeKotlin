@@ -1,6 +1,7 @@
 package it.bonfadelli.game.of.life
 
-class GameOfLifeParser {
+class GameOfLifeParser(private val alphabet: HashMap<Char, Cell.State>) {
+
     fun parse(cellsStr: String): Array<Cell> {
         val cells: Array<Cell?> = arrayOfNulls(cellsStr.count())
         for (cellIndex in 0..cellsStr.count() - 1) {
@@ -10,16 +11,11 @@ class GameOfLifeParser {
     }
 
     private fun parseSingleCell(cellState: Char): Cell {
-        val cell: Cell
-        if (cellState == '*') {
-            cell = Cell(Cell.State.ALIVE)
-        } else if (cellState == '.') {
-            cell = Cell(Cell.State.DEAD)
-        }
-        else {
+        if (!alphabet.containsKey(cellState)) {
             throw ParseException("Unknown symbol " + cellState)
         }
-        return cell
+
+        return Cell(alphabet[cellState]!!)
     }
 
     class ParseException(message: String?) : Throwable(message)
