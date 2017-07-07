@@ -1,7 +1,9 @@
+package it.bonfadelli.game.of.life
+
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.BehaviorSpec
 
-class GameOfLifeTest : BehaviorSpec() {
+class GameOfLifeIntegrationTest : BehaviorSpec() {
     init {
         given("a single dead cell") {
             val game: GameOfLife = GameOfLife(".")
@@ -51,46 +53,3 @@ class GameOfLifeTest : BehaviorSpec() {
     }
 }
 
-class GameOfLife(private val cells: String) {
-    fun evolve(): String {
-        var evolution: String = ""
-        for (cellIndex in 0..cells.count() - 1) {
-            evolution = appendEvolvedStatus(cellIndex, evolution)
-        }
-        return evolution
-    }
-
-    private fun appendEvolvedStatus(cellIndex: Int, evolution: String): String {
-        val numberOfAliveSiblings = getNumberOfAliveSiblings(cellIndex)
-        val newCellState = getNewCellState(cellIndex, numberOfAliveSiblings)
-        return appendNewCellStateTo(evolution, newCellState)
-    }
-
-    private fun getNumberOfAliveSiblings(i: Int): Int {
-        var numberOfAliveSiblings = 0
-
-        val indexOfPreviousCell = i - 1
-        if (indexOfPreviousCell >= 0 && cells[indexOfPreviousCell] == '*') {
-            numberOfAliveSiblings++
-        }
-
-        val indexOfFollowingCell = i + 1
-        if (indexOfFollowingCell < cells.length && cells[indexOfFollowingCell] == '*') {
-            numberOfAliveSiblings++
-        }
-
-        return numberOfAliveSiblings
-    }
-
-    private fun getNewCellState(i: Int, numberOfAliveSiblings: Int): Char {
-        var newCellState = '.'
-        if (cells[i] == '*' && numberOfAliveSiblings == 2) {
-            newCellState = '*'
-        }
-        return newCellState
-    }
-
-    private fun appendNewCellStateTo(evolution: String, newCellState: Char): String {
-        return evolution + newCellState
-    }
-}
