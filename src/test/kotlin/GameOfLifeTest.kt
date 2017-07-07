@@ -52,14 +52,32 @@ class GameOfLifeTest : BehaviorSpec() {
     }
 }
 
-class GameOfLife(private val cell: String) {
+class GameOfLife(private val cells: String) {
     fun evolve(): String {
-        if (cell == "***") {
-            return ".*."
-        } else if (cell == "**." || cell == ".**" || cell == "*.*") {
-            return "..."
-        } else {
-            return cell
+        var evolution:String = ""
+        for (i in 0..cells.count()-1) {
+            var numberOfAliveSiblings = 0
+            val indexOfPreviousCell = i-1
+            if (indexOfPreviousCell >= 0 && cells[indexOfPreviousCell]=='*') {
+                numberOfAliveSiblings++
+            }
+            val indexOfFollowingCell = i+1
+            if (indexOfFollowingCell < cells.length && cells[indexOfFollowingCell]=='*') {
+                numberOfAliveSiblings++
+            }
+
+            if (cells[i]=='*') {
+                if (numberOfAliveSiblings == 2) {
+                    evolution += '*'
+                }
+                else {
+                    evolution += "."
+                }
+            }
+            else {
+                evolution += '.'
+            }
         }
+        return evolution
     }
 }
