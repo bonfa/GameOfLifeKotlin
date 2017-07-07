@@ -3,7 +3,7 @@ import io.kotlintest.specs.BehaviorSpec
 
 class GameOfLifeTest : BehaviorSpec() {
     init {
-        given("a dead cell") {
+        given("a single dead cell") {
             val cell = "."
             val game:GameOfLife = GameOfLife(cell)
             `when`("the cell evolves") {
@@ -12,18 +12,24 @@ class GameOfLifeTest : BehaviorSpec() {
                     evolved shouldBe "."
                 }
             }
-//            `when`("I throw it away") {
-//                then("it should come back") {
-//                    // test code
-//                }
-//            }
         }
+
+        given("two dead cells") {
+            val cell = ".."
+            val game:GameOfLife = GameOfLife(cell)
+            `when`("the cells evolve") {
+                val evolved = game.evolve()
+                then("they are both dead") {
+                    evolved shouldBe ".."
+                }
+            }
+        }
+
     }
 }
 
 class GameOfLife(private val cell: String) {
     fun evolve(): String {
-        return "."
+        return cell
     }
-
 }
