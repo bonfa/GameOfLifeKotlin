@@ -13,9 +13,14 @@ class GameOfLifeParser {
         val cell: Cell
         if (cellState == '*') {
             cell = Cell(Cell.State.ALIVE)
-        } else {
+        } else if (cellState == '.') {
             cell = Cell(Cell.State.DEAD)
+        }
+        else {
+            throw ParseException("Unknown symbol " + cellState)
         }
         return cell
     }
+
+    class ParseException(message: String?) : Throwable(message)
 }
