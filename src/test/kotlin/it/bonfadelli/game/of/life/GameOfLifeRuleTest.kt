@@ -1,11 +1,9 @@
 package it.bonfadelli.game.of.life
 
-import io.kotlintest.matchers.Matcher
-import io.kotlintest.matchers.Result
-import io.kotlintest.matchers.should
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.BehaviorSpec
-import it.bonfadelli.game.of.life.Cell.State.*
+import it.bonfadelli.game.of.life.Cell.State.ALIVE
+import it.bonfadelli.game.of.life.Cell.State.DEAD
 
 class GameOfLifeRuleTest : BehaviorSpec() {
 
