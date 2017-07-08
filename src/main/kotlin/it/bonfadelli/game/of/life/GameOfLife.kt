@@ -5,11 +5,11 @@ class GameOfLife(private val gameOfLifeStringParser: GameOfLifeStringParser,
                  private val gameOfLifeRule: GameOfLifeRule) {
 
     fun evolve(cellsStr: String): String {
-        return gameOfLifeFormatter.format(
-                gameOfLifeRule.evolve(
-                        gameOfLifeStringParser.parse(cellsStr)
-                )
-        )
+        //TODO fix parser and formatter for matrix
+        //val elements = gameOfLifeStringParser.parse(cellsStr)
+        //val evolutionCells = gameOfLifeRule.evolve(listOf(elements))[0]
+        //return gameOfLifeFormatter.format(evolutionCells)
+        return ""
     }
 }
 

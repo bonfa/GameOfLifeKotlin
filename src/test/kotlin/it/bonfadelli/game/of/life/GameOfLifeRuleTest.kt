@@ -1,5 +1,8 @@
 package it.bonfadelli.game.of.life
 
+import io.kotlintest.matchers.Matcher
+import io.kotlintest.matchers.Result
+import io.kotlintest.matchers.should
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.BehaviorSpec
 import it.bonfadelli.game.of.life.Cell.State.*
@@ -14,7 +17,8 @@ class GameOfLifeRuleTest : BehaviorSpec() {
         given("a single dead cell") {
             `when`("the cell evolves") {
                 then("it is still dead") {
-                    game.evolve(arrayOf(DEAD_CELL)) shouldBe arrayOf(DEAD_CELL)
+                    val evolve = game.evolve(listOf(listOf(DEAD_CELL)))
+                    evolve shouldBe listOf(listOf(DEAD_CELL))
                 }
             }
         }
@@ -22,7 +26,7 @@ class GameOfLifeRuleTest : BehaviorSpec() {
         given("two dead cells") {
             `when`("the cells evolve") {
                 then("they are both dead") {
-                    game.evolve(arrayOf(DEAD_CELL, DEAD_CELL)) shouldBe arrayOf(DEAD_CELL, DEAD_CELL)
+                    game.evolve(listOf(listOf(DEAD_CELL, DEAD_CELL))) shouldBe listOf(listOf(DEAD_CELL, DEAD_CELL))
                 }
             }
         }
@@ -30,7 +34,7 @@ class GameOfLifeRuleTest : BehaviorSpec() {
         given("three alive cells") {
             `when`("the cells evolve") {
                 then("the central cell is alive") {
-                    game.evolve(arrayOf(ALIVE_CELL, ALIVE_CELL, ALIVE_CELL)) shouldBe arrayOf(DEAD_CELL, ALIVE_CELL, DEAD_CELL)
+                    game.evolve(listOf(listOf(ALIVE_CELL, ALIVE_CELL, ALIVE_CELL))) shouldBe listOf(listOf(DEAD_CELL, ALIVE_CELL, DEAD_CELL))
                 }
             }
         }
@@ -38,13 +42,21 @@ class GameOfLifeRuleTest : BehaviorSpec() {
         given("two alive and one dead cells") {
             `when`("the cells evolve") {
                 then("all the cells are dead") {
-                    game.evolve(arrayOf(ALIVE_CELL, ALIVE_CELL, DEAD_CELL)) shouldBe arrayOf(DEAD_CELL, DEAD_CELL, DEAD_CELL)
-                    game.evolve(arrayOf(DEAD_CELL, ALIVE_CELL, ALIVE_CELL)) shouldBe arrayOf(DEAD_CELL, DEAD_CELL, DEAD_CELL)
-                    game.evolve(arrayOf(ALIVE_CELL, DEAD_CELL, ALIVE_CELL)) shouldBe arrayOf(DEAD_CELL, DEAD_CELL, DEAD_CELL)
+                    game.evolve(listOf(listOf(ALIVE_CELL, ALIVE_CELL, DEAD_CELL))) shouldBe listOf(listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL))
+                    game.evolve(listOf(listOf(DEAD_CELL, ALIVE_CELL, ALIVE_CELL))) shouldBe listOf(listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL))
+                    game.evolve(listOf(listOf(ALIVE_CELL, DEAD_CELL, ALIVE_CELL))) shouldBe listOf(listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL))
+                }
+            }
+        }
+
+        given("two alive cells in column") {
+            `when`("the cells evolve") {
+                then("they are both dead") {
+                    game.evolve(listOf(listOf(DEAD_CELL), listOf(DEAD_CELL))) shouldBe listOf(listOf(DEAD_CELL),listOf(DEAD_CELL))
+
                 }
             }
         }
     }
-
 
 }
