@@ -41,12 +41,15 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
             val alphabetWithOnlyDeadSymbol = hashMapOf(DEAD to '.')
             `when`("the formatter is created") {
                 then("the formatter throws an exception") {
-                    shouldThrow<GameOfLifeFormatter.InvalidAlphabetException> {
+                    val exception = shouldThrow<GameOfLifeFormatter.InvalidAlphabetException> {
                         GameOfLifeFormatter(alphabetWithOnlyAliveSymbol)
                     }
-                    shouldThrow<GameOfLifeFormatter.InvalidAlphabetException> {
+                    exception.message shouldBe "The alphabet does not contain the symbol for the DEAD state"
+
+                    val exception2 = shouldThrow<GameOfLifeFormatter.InvalidAlphabetException> {
                         GameOfLifeFormatter(alphabetWithOnlyDeadSymbol)
                     }
+                    exception2.message shouldBe "The alphabet does not contain the symbol for the ALIVE state"
                 }
             }
         }
