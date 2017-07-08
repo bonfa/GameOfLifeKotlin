@@ -1,6 +1,6 @@
 package it.bonfadelli.game.of.life
 
-class GameOfLifeParser(private val alphabet: HashMap<Char, Cell.State>) {
+class GameOfLifeStringParser(private val alphabet: HashMap<Char, Cell.State>) {
 
     fun parse(cellsStr: String): Array<Cell> {
         val cells: Array<Cell?> = arrayOfNulls(cellsStr.count())
