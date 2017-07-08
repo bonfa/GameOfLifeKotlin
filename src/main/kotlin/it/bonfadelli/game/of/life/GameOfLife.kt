@@ -8,7 +8,7 @@ class GameOfLife(private val cellsStr: String) {
         for (cellIndex in 0..cellsStr.count() - 1) {
             evolutionCells = appendEvolvedStatus(cellIndex, cells, evolutionCells)
         }
-        return GameOfLifeFormatter().format(evolutionCells)
+        return GameOfLifeFormatter(hashMapOf(Cell.State.ALIVE to '*', Cell.State.DEAD to '.')).format(evolutionCells)
     }
 
     private fun appendEvolvedStatus(cellIndex: Int, startingCells: Array<Cell>, evolutionCells: Array<Cell>): Array<Cell> {
