@@ -9,7 +9,7 @@ class GameOfLifeIntegrationTest : BehaviorSpec() {
 
     init {
         given("a single dead cell") {
-            val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter)
+            val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
             `when`("the cell evolves") {
                 val evolution = game.evolve(".")
                 then("it is still dead") {
@@ -19,7 +19,7 @@ class GameOfLifeIntegrationTest : BehaviorSpec() {
         }
 
         given("two dead cells") {
-            val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter)
+            val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
             `when`("the cells evolve") {
                 val evolution = game.evolve("..")
                 then("they are both dead") {
@@ -29,7 +29,7 @@ class GameOfLifeIntegrationTest : BehaviorSpec() {
         }
 
         given("three alive cells") {
-            val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter)
+            val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
             `when`("the cells evolve") {
                 val evolution = game.evolve("***")
                 then("the central cell is alive") {
@@ -39,9 +39,9 @@ class GameOfLifeIntegrationTest : BehaviorSpec() {
         }
 
         given("two alive and one dead cells") {
-            val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter)
-            val anotherGame: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter)
-            val yetAnotherGame: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter)
+            val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
+            val anotherGame: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
+            val yetAnotherGame: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
             `when`("the cells evolve") {
                 val evolution = game.evolve("**.")
                 val anotherEvolution = anotherGame.evolve(".**")
