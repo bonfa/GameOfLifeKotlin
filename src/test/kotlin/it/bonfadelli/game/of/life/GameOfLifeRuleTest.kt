@@ -21,7 +21,7 @@ class GameOfLifeRuleTest : BehaviorSpec() {
             }
         }
 
-        given("two dead cells") {
+        given("two dead cells in a row") {
             `when`("the cells evolve") {
                 then("they are both dead") {
                     game.evolve(listOf(listOf(DEAD_CELL, DEAD_CELL))) shouldBe listOf(listOf(DEAD_CELL, DEAD_CELL))
@@ -29,7 +29,7 @@ class GameOfLifeRuleTest : BehaviorSpec() {
             }
         }
 
-        given("three alive cells") {
+        given("three alive cells in a row") {
             `when`("the cells evolve") {
                 then("the central cell is alive") {
                     game.evolve(listOf(listOf(ALIVE_CELL, ALIVE_CELL, ALIVE_CELL))) shouldBe listOf(listOf(DEAD_CELL, ALIVE_CELL, DEAD_CELL))
@@ -37,7 +37,7 @@ class GameOfLifeRuleTest : BehaviorSpec() {
             }
         }
 
-        given("two alive and one dead cells") {
+        given("two alive and one dead cells in a row") {
             `when`("the cells evolve") {
                 then("all the cells are dead") {
                     game.evolve(listOf(listOf(ALIVE_CELL, ALIVE_CELL, DEAD_CELL))) shouldBe listOf(listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL))
@@ -50,7 +50,16 @@ class GameOfLifeRuleTest : BehaviorSpec() {
         given("two alive cells in column") {
             `when`("the cells evolve") {
                 then("they are both dead") {
-                    game.evolve(listOf(listOf(DEAD_CELL), listOf(DEAD_CELL))) shouldBe listOf(listOf(DEAD_CELL),listOf(DEAD_CELL))
+                    game.evolve(listOf(listOf(ALIVE_CELL), listOf(ALIVE_CELL))) shouldBe listOf(listOf(DEAD_CELL), listOf(DEAD_CELL))
+
+                }
+            }
+        }
+
+        given("three alive cells in column") {
+            `when`("the cells evolve") {
+                then("they are both dead") {
+                    game.evolve(listOf(listOf(ALIVE_CELL), listOf(ALIVE_CELL), listOf(ALIVE_CELL))) shouldBe listOf(listOf(DEAD_CELL), listOf(ALIVE_CELL), listOf(DEAD_CELL))
 
                 }
             }
