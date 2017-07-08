@@ -64,6 +64,20 @@ class GameOfLifeRuleTest : BehaviorSpec() {
                 }
             }
         }
+
+        given("a dead cell with three alive cell around") {
+            `when`("it evolves") {
+                then("it becomes alive") {
+                    game.evolve(listOf(
+                            listOf(ALIVE_CELL, ALIVE_CELL, ALIVE_CELL),
+                            listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL))
+                    ) shouldBe listOf(
+                            listOf(DEAD_CELL, ALIVE_CELL, DEAD_CELL),
+                            listOf(DEAD_CELL, ALIVE_CELL, DEAD_CELL)
+                    )
+                }
+            }
+        }
     }
 
 }

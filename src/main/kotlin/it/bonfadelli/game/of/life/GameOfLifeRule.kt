@@ -43,7 +43,7 @@ class GameOfLifeRule {
 
     private fun getEvolvedCell(numberOfAliveSiblings: Int, oldCell: Cell): Cell {
         var newCell = Cell(DEAD)
-        if (oldCell.isAlive() && numberOfAliveSiblings == 2) {
+        if (numberOfAliveSiblings == 3 || (numberOfAliveSiblings == 2 && oldCell.isAlive())) {
             newCell = Cell(ALIVE)
         }
         return newCell
