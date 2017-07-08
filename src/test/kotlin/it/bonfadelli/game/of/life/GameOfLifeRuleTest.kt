@@ -73,8 +73,22 @@ class GameOfLifeRuleTest : BehaviorSpec() {
                             listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL))
                     ) shouldBe listOf(
                             listOf(DEAD_CELL, ALIVE_CELL, DEAD_CELL),
-                            listOf(DEAD_CELL, ALIVE_CELL, DEAD_CELL)
-                    )
+                            listOf(DEAD_CELL, ALIVE_CELL, DEAD_CELL))
+                }
+            }
+        }
+
+        given("a square of nine dead cells") {
+            `when`("it evolves") {
+                then("it remains the same") {
+                    game.evolve(listOf(
+                            listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL),
+                            listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL),
+                            listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL))
+                    ) shouldBe listOf(
+                            listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL),
+                            listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL),
+                            listOf(DEAD_CELL, DEAD_CELL, DEAD_CELL))
                 }
             }
         }
