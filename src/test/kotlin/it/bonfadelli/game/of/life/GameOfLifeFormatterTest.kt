@@ -11,12 +11,11 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
     private val deadSymbol = "."
     private val aliveSymbol = "*"
     private val alphabet = hashMapOf(ALIVE to '*', DEAD to '.')
-
-    private val LINE_SEPARATOR = "\n"
+    private val lineSeparator = '\n'
+    private val formatter = GameOfLifeFormatter(alphabet, lineSeparator)
 
     init {
         given("a game of life formatter and a dead cell") {
-            val formatter = GameOfLifeFormatter(alphabet)
             val cells = listOf(listOf(Cell(DEAD)))
             `when`("the cell is formatted") {
                 val formattedString = formatter.format(cells)
@@ -27,7 +26,6 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
         }
 
         given("a game of life formatter and an alive cell") {
-            val formatter = GameOfLifeFormatter(alphabet)
             val cells = listOf(listOf(Cell(ALIVE)))
             `when`("the cell is formatted") {
                 val formattedString = formatter.format(cells)
@@ -44,12 +42,12 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
             `when`("the formatter is created") {
                 then("the formatter throws an exception") {
                     val exception = shouldThrow<GameOfLifeFormatter.InvalidAlphabetException> {
-                        GameOfLifeFormatter(alphabetWithOnlyAliveSymbol)
+                        GameOfLifeFormatter(alphabetWithOnlyAliveSymbol, lineSeparator)
                     }
                     exception.message shouldBe "The alphabet does not contain the symbol for the DEAD state"
 
                     val exception2 = shouldThrow<GameOfLifeFormatter.InvalidAlphabetException> {
-                        GameOfLifeFormatter(alphabetWithOnlyDeadSymbol)
+                        GameOfLifeFormatter(alphabetWithOnlyDeadSymbol, lineSeparator)
                     }
                     exception2.message shouldBe "The alphabet does not contain the symbol for the ALIVE state"
                 }
@@ -57,7 +55,6 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
         }
 
         given("a line of symbols present in the alphabet") {
-            val formatter = GameOfLifeFormatter(alphabet)
             val cells = listOf(listOf(Cell(ALIVE), Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(DEAD)))
             `when`("the cells are formatted") {
                 val formattedString = formatter.format(cells)
@@ -68,7 +65,6 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
         }
 
         given("a grid of symbols present in the alphabet") {
-            val formatter = GameOfLifeFormatter(alphabet)
             val cells = listOf(
                     listOf(Cell(ALIVE), Cell(DEAD)),
                     listOf(Cell(ALIVE), Cell(ALIVE))
@@ -76,7 +72,7 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
             `when`("the cells are formatted") {
                 val formattedString = formatter.format(cells)
                 then("they are represented with the correct symbols") {
-                    formattedString shouldBe aliveSymbol + deadSymbol + LINE_SEPARATOR + aliveSymbol + aliveSymbol
+                    formattedString shouldBe aliveSymbol + deadSymbol + lineSeparator + aliveSymbol + aliveSymbol
                 }
             }
         }

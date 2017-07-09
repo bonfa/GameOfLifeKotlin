@@ -4,7 +4,7 @@ import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.BehaviorSpec
 
 class GameOfLifeIntegrationTest : BehaviorSpec() {
-    private val gameOfLifeFormatter = GameOfLifeFormatter(hashMapOf(Cell.State.ALIVE to '*', Cell.State.DEAD to '.'))
+    private val gameOfLifeFormatter = GameOfLifeFormatter(hashMapOf(Cell.State.ALIVE to '*', Cell.State.DEAD to '.'), '\n')
     private val gameOfLifeStringParser = GameOfLifeStringParser(hashMapOf('*' to Cell.State.ALIVE, '.' to Cell.State.DEAD), '\n')
 
     init {
