@@ -5,7 +5,7 @@ import io.kotlintest.specs.BehaviorSpec
 
 class GameOfLifeIntegrationTest : BehaviorSpec() {
     private val gameOfLifeFormatter = GameOfLifeFormatter(hashMapOf(Cell.State.ALIVE to '*', Cell.State.DEAD to '.'))
-    private val gameOfLifeStringParser = GameOfLifeStringParser(hashMapOf('*' to Cell.State.ALIVE, '.' to Cell.State.DEAD))
+    private val gameOfLifeStringParser = GameOfLifeStringParser(hashMapOf('*' to Cell.State.ALIVE, '.' to Cell.State.DEAD), '\n')
 
     init {
         given("a single dead cell") {

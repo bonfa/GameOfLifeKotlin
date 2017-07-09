@@ -1,13 +1,13 @@
 package it.bonfadelli.game.of.life
 
-class GameOfLifeStringParser(private val alphabet: HashMap<Char, Cell.State>) {
+class GameOfLifeStringParser(private val alphabet: HashMap<Char, Cell.State>, private val lineSeparator: Char) {
 
     fun parse(cellsStr: String): List<List<Cell>> {
         val cells: MutableList<MutableList<Cell>> = mutableListOf()
 
         var line = mutableListOf<Cell>()
         for (cellIndex in 0..cellsStr.count() - 1) {
-            if (cellsStr[cellIndex] != '\n') {
+            if (cellsStr[cellIndex] != lineSeparator) {
                 line.add(parseSingleCell(cellsStr[cellIndex]))
             }
             else {

@@ -12,13 +12,13 @@ class GameOfLifeStringParserTest : BehaviorSpec() {
     private val deadSymbol = "."
     private val aSymbolNotPresentInTheAlphabet = "c"
     private val alphabet = hashMapOf('*' to ALIVE, '.' to DEAD)
+    private val separator = '\n'
+    private val parser = GameOfLifeStringParser(alphabet, separator)
 
     init {
         given("a parser and a cell represented with the dead symbol") {
-            val symbol = deadSymbol
-            val parser = GameOfLifeStringParser(alphabet)
             `when`("the cell is parsed") {
-                val cells = parser.parse(symbol);
+                val cells = parser.parse(deadSymbol);
                 then("its state is dead") {
                     cells shouldBe listOf(listOf(Cell(DEAD)))
                 }
@@ -26,10 +26,8 @@ class GameOfLifeStringParserTest : BehaviorSpec() {
         }
 
         given("a parser and a cell represented with the alive symbol") {
-            val alive = aliveSymbol
-            val parser = GameOfLifeStringParser(alphabet)
             `when`("the cell is parsed") {
-                val cells = parser.parse(alive);
+                val cells = parser.parse(aliveSymbol);
                 then("its state is alive") {
                     cells shouldBe listOf(listOf(Cell(ALIVE)))
                 }
@@ -37,22 +35,19 @@ class GameOfLifeStringParserTest : BehaviorSpec() {
         }
 
         given("a parser and a symbol not present in the alphabet") {
-            val symbol = aSymbolNotPresentInTheAlphabet
-            val parser = GameOfLifeStringParser(alphabet)
             `when`("the cell is parsed") {
                 then("the parser throws an exception") {
                     shouldThrow<GameOfLifeStringParser.ParseException> {
-                        parser.parse(symbol);
+                        parser.parse(aSymbolNotPresentInTheAlphabet);
                     }
                 }
             }
         }
 
         given("a line of symbols present in the alphabet") {
-            val deadSymbol = deadSymbol + aliveSymbol + aliveSymbol + aliveSymbol + deadSymbol + deadSymbol
-            val parser = GameOfLifeStringParser(alphabet)
+            val lineOfSymbols = deadSymbol + aliveSymbol + aliveSymbol + aliveSymbol + deadSymbol + deadSymbol
             `when`("the cells are parsed") {
-                val cells = parser.parse(deadSymbol)
+                val cells = parser.parse(lineOfSymbols)
                 then("they have the correct status") {
                     cells shouldBe listOf(listOf(Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(ALIVE), Cell(DEAD), Cell(DEAD)))
                 }
@@ -60,10 +55,9 @@ class GameOfLifeStringParserTest : BehaviorSpec() {
         }
 
         given("a matrix of symbols present in the alphabet") {
-            val deadSymbol = deadSymbol + aliveSymbol + "\n" + deadSymbol + deadSymbol
-            val parser = GameOfLifeStringParser(alphabet)
+            val matrixOfSymbols = deadSymbol + aliveSymbol + separator + deadSymbol + deadSymbol
             `when`("the cells are parsed") {
-                val cells = parser.parse(deadSymbol)
+                val cells = parser.parse(matrixOfSymbols)
                 then("they have the correct status") {
                     cells shouldBe listOf(
                             listOf(Cell(DEAD), Cell(ALIVE)),
@@ -73,4 +67,5 @@ class GameOfLifeStringParserTest : BehaviorSpec() {
             }
         }
     }
+
 }
