@@ -2,7 +2,9 @@ package it.bonfadelli.game.of.life
 
 import it.bonfadelli.game.of.life.Cell.State.*
 
+
 class GameOfLifeFormatter(private val alphabet: Map<Cell.State, Char>) {
+    private val LINE_FORMATTER = "\n"
 
     init {
         throwExceptionIfAlphabetDoesNotContain(DEAD, "The alphabet does not contain the symbol for the DEAD state")
@@ -15,12 +17,15 @@ class GameOfLifeFormatter(private val alphabet: Map<Cell.State, Char>) {
         }
     }
 
-    fun format(evolutionCells: Array<Cell>): String {
+    fun format(evolutionCells: Array<Array<Cell>>): String {
         var evolution: String = ""
-        for (cell: Cell in evolutionCells) {
-            evolution = evolution.plus(getSymbol(cell))
+        for (line: Array<Cell> in evolutionCells) {
+            for (cell: Cell in line) {
+                evolution = evolution.plus(getSymbol(cell))
+            }
+            evolution = evolution.plus(LINE_FORMATTER)
         }
-        return evolution
+        return evolution.trim()
     }
 
     private fun getSymbol(cell: Cell): Char {

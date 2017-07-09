@@ -12,10 +12,12 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
     private val aliveSymbol = "*"
     private val alphabet = hashMapOf(ALIVE to '*', DEAD to '.')
 
+    private val LINE_SEPARATOR = "\n"
+
     init {
         given("a game of life formatter and a dead cell") {
             val formatter = GameOfLifeFormatter(alphabet)
-            val cells = arrayOf(Cell(DEAD))
+            val cells = arrayOf(arrayOf(Cell(DEAD)))
             `when`("the cell is formatted") {
                 val formattedString = formatter.format(cells)
                 then("it is represented with the dead symbol") {
@@ -26,7 +28,7 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
 
         given("a game of life formatter and an alive cell") {
             val formatter = GameOfLifeFormatter(alphabet)
-            val cells = arrayOf(Cell(ALIVE))
+            val cells = arrayOf(arrayOf(Cell(ALIVE)))
             `when`("the cell is formatted") {
                 val formattedString = formatter.format(cells)
                 then("it is represented with the alive symbol") {
@@ -56,7 +58,7 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
 
         given("a line of symbols present in the alphabet") {
             val formatter = GameOfLifeFormatter(alphabet)
-            val cells = arrayOf(Cell(ALIVE), Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(DEAD))
+            val cells = arrayOf(arrayOf(Cell(ALIVE), Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(DEAD)))
             `when`("the cells are formatted") {
                 val formattedString = formatter.format(cells)
                 then("they are represented with the correct symbols") {
@@ -64,5 +66,20 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
                 }
             }
         }
+
+        given("a grid of symbols present in the alphabet") {
+            val formatter = GameOfLifeFormatter(alphabet)
+            val cells = arrayOf(
+                    arrayOf(Cell(ALIVE), Cell(DEAD)),
+                    arrayOf(Cell(ALIVE), Cell(ALIVE))
+            )
+            `when`("the cells are formatted") {
+                val formattedString = formatter.format(cells)
+                then("they are represented with the correct symbols") {
+                    formattedString shouldBe aliveSymbol + deadSymbol + LINE_SEPARATOR + aliveSymbol + aliveSymbol
+                }
+            }
+        }
     }
+
 }
