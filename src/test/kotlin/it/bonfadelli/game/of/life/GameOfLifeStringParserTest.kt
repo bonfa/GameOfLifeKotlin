@@ -20,7 +20,7 @@ class GameOfLifeStringParserTest : BehaviorSpec() {
             `when`("the cell is parsed") {
                 val cells = parser.parse(symbol);
                 then("its state is dead") {
-                    cells shouldBe arrayOf(Cell(DEAD))
+                    cells shouldBe listOf(listOf(Cell(DEAD)))
                 }
             }
         }
@@ -31,7 +31,7 @@ class GameOfLifeStringParserTest : BehaviorSpec() {
             `when`("the cell is parsed") {
                 val cells = parser.parse(alive);
                 then("its state is alive") {
-                    cells shouldBe arrayOf(Cell(ALIVE))
+                    cells shouldBe listOf(listOf(Cell(ALIVE)))
                 }
             }
         }
@@ -52,12 +52,25 @@ class GameOfLifeStringParserTest : BehaviorSpec() {
             val deadSymbol = deadSymbol + aliveSymbol + aliveSymbol + aliveSymbol + deadSymbol + deadSymbol
             val parser = GameOfLifeStringParser(alphabet)
             `when`("the cells are parsed") {
-                val cells = parser.parse(deadSymbol);
+                val cells = parser.parse(deadSymbol)
                 then("they have the correct status") {
-                    cells shouldBe arrayOf(Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(ALIVE), Cell(DEAD), Cell(DEAD))
+                    cells shouldBe listOf(listOf(Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(ALIVE), Cell(DEAD), Cell(DEAD)))
+                }
+            }
+        }
+
+        given("a matrix of symbols present in the alphabet") {
+            val deadSymbol = deadSymbol + aliveSymbol + "\n" + deadSymbol + deadSymbol
+            val parser = GameOfLifeStringParser(alphabet)
+            `when`("the cells are parsed") {
+                val cells = parser.parse(deadSymbol)
+                then("they have the correct status") {
+                    cells shouldBe listOf(
+                            listOf(Cell(DEAD), Cell(ALIVE)),
+                            listOf(Cell(DEAD), Cell(DEAD))
+                    )
                 }
             }
         }
     }
-
 }
