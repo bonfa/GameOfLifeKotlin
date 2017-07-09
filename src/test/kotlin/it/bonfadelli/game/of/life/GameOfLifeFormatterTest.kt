@@ -17,7 +17,7 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
     init {
         given("a game of life formatter and a dead cell") {
             val formatter = GameOfLifeFormatter(alphabet)
-            val cells = arrayOf(arrayOf(Cell(DEAD)))
+            val cells = listOf(listOf(Cell(DEAD)))
             `when`("the cell is formatted") {
                 val formattedString = formatter.format(cells)
                 then("it is represented with the dead symbol") {
@@ -28,7 +28,7 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
 
         given("a game of life formatter and an alive cell") {
             val formatter = GameOfLifeFormatter(alphabet)
-            val cells = arrayOf(arrayOf(Cell(ALIVE)))
+            val cells = listOf(listOf(Cell(ALIVE)))
             `when`("the cell is formatted") {
                 val formattedString = formatter.format(cells)
                 then("it is represented with the alive symbol") {
@@ -58,7 +58,7 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
 
         given("a line of symbols present in the alphabet") {
             val formatter = GameOfLifeFormatter(alphabet)
-            val cells = arrayOf(arrayOf(Cell(ALIVE), Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(DEAD)))
+            val cells = listOf(listOf(Cell(ALIVE), Cell(DEAD), Cell(ALIVE), Cell(ALIVE), Cell(DEAD)))
             `when`("the cells are formatted") {
                 val formattedString = formatter.format(cells)
                 then("they are represented with the correct symbols") {
@@ -69,9 +69,9 @@ class GameOfLifeFormatterTest : BehaviorSpec() {
 
         given("a grid of symbols present in the alphabet") {
             val formatter = GameOfLifeFormatter(alphabet)
-            val cells = arrayOf(
-                    arrayOf(Cell(ALIVE), Cell(DEAD)),
-                    arrayOf(Cell(ALIVE), Cell(ALIVE))
+            val cells = listOf(
+                    listOf(Cell(ALIVE), Cell(DEAD)),
+                    listOf(Cell(ALIVE), Cell(ALIVE))
             )
             `when`("the cells are formatted") {
                 val formattedString = formatter.format(cells)

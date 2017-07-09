@@ -17,9 +17,9 @@ class GameOfLifeFormatter(private val alphabet: Map<Cell.State, Char>) {
         }
     }
 
-    fun format(evolutionCells: Array<Array<Cell>>): String {
+    fun format(evolutionCells: List<List<Cell>>): String {
         var evolution: String = ""
-        for (line: Array<Cell> in evolutionCells) {
+        for (line: List<Cell> in evolutionCells) {
             for (cell: Cell in line) {
                 evolution = evolution.plus(getSymbol(cell))
             }
