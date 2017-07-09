@@ -18,7 +18,7 @@ class GameOfLifeIntegrationTest : BehaviorSpec() {
             }
         }
 
-        given("two dead cells") {
+        given("two dead cells in a row") {
             val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
             `when`("the cells evolve") {
                 val evolution = game.evolve("..")
@@ -28,7 +28,7 @@ class GameOfLifeIntegrationTest : BehaviorSpec() {
             }
         }
 
-        given("three alive cells") {
+        given("three alive cells in a row") {
             val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
             `when`("the cells evolve") {
                 val evolution = game.evolve("***")
@@ -38,7 +38,7 @@ class GameOfLifeIntegrationTest : BehaviorSpec() {
             }
         }
 
-        given("two alive and one dead cells") {
+        given("two alive and one dead cells in a row") {
             val game: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
             val anotherGame: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
             val yetAnotherGame: GameOfLife = GameOfLife(gameOfLifeStringParser, gameOfLifeFormatter, GameOfLifeRule())
@@ -53,6 +53,7 @@ class GameOfLifeIntegrationTest : BehaviorSpec() {
                 }
             }
         }
+        
     }
 }
 
